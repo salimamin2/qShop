@@ -1,0 +1,304 @@
+/* Tablets Only - Start */
+
+@media (max-width: 979px) {
+	#left-column{
+		width: 73px;
+	}
+
+	#content{
+		margin-left: 73px;
+	}
+
+	.right-header-content{
+		margin-left: 73px;
+	}
+
+	ul.mainnav > li > a{
+		font-size: 0;
+	}
+
+	ul.mainnav li a > span{
+		display: none;
+	}
+
+	.sidebar-logo{
+		width: 73px;
+		margin: 0 auto 30px;
+	}
+
+	.sidebar.copyright{
+		display: none;
+	}
+
+	ul.mainnav li#menu-control{
+		display: block;
+	}
+
+	.secondary-menu > ul > li > ul{
+		margin: -1px 0 0;
+	}
+
+	.overview{
+		margin:0 0 0 2%;
+	}
+
+	.other-stats{
+		margin:0 0 0 2%;
+	}
+
+	table.list td{
+		/*padding: 5px;*/
+	}
+}
+
+/* Tablets Only - End */
+
+
+/* Everything Below Tablet - Start */
+@media (max-width: 767px) {
+	body{
+		padding-left: 0;
+		padding-right: 0;
+	}
+	.form-signin-body-left{
+		float:none;
+		margin: 0 17px;
+		max-width: none;
+		padding: 20px 0 0;
+		width: auto;
+	}
+	.form-signin-body-right{
+		float: none;
+		height: auto;
+		margin: 10px 0 0 0;
+		max-width: none;
+		width: auto;
+	}
+	.form-signin-body-right input{
+		padding: 22px 19px;
+		background: none repeat scroll 0 0 #00A99D;
+		box-shadow: none;
+		-webkit-box-shadow: none;
+		-moz-box-shadow: none;
+		border:0;
+		font-size: 20px;
+		text-shadow:none;
+		height: auto;
+		width: 100%;
+		-webkit-border-radius: 0;
+		-moz-border-radius: 0;
+		border-radius: 0;
+	}
+
+	.form-signin-body-right input:active{
+		background: none repeat scroll 0 0 #00D1C3;
+		border-left:2px solid #12877A;
+		border-right:2px solid #12877A;
+		border-top:3px solid #12877A;
+		padding-top: 23px;
+		padding-bottom: 18px;
+	}
+
+	.statistic{
+		width: 100%;
+		min-width: 0;
+	}
+
+	.overview{
+		width: 100%;
+		margin: 0;
+		min-width: 0;
+	}
+
+	.latest{
+		width: 100%;
+	}
+
+	.other-stats{
+		width: 100%;
+		margin: 0;
+	}
+
+	.right-header-content{
+		height: 110px;
+	}
+
+	.secondary-menu > ul > li > a{
+		line-height: 35px;
+		padding: 10px 25px 9px 45px;
+	}
+
+	.secondary-menu > ul > li#store > a{
+		background: url("../image/css-sprite-icons.png") no-repeat scroll 2px -755px #636363;
+	}
+
+	.secondary-menu > ul > li#store > a:focus,
+	.secondary-menu > ul > li#store > a:hover{
+		background: url("../image/css-sprite-icons.png") no-repeat scroll -283px -755px #00A99D;
+		text-decoration: none;
+	}
+
+	.secondary-menu > ul > li#logout > a{
+		background: url("../image/css-sprite-icons.png") no-repeat scroll 2px -836px #565656;
+	}
+
+	.secondary-menu > ul > li#logout > a:focus,
+	.secondary-menu > ul > li#logout > a:hover{
+		background: url("../image/css-sprite-icons.png") no-repeat scroll -284px -836px #565656;
+		background-color:#00A99D;
+		text-decoration: none;
+	}
+
+	#content{
+		padding: 20px 15px 30px;
+	}
+
+	#content .content > form{
+		overflow-x: scroll;
+		overflow-y: hidden;
+	}
+
+	#content .heading h1{
+		font-size: 22px;
+		top: -58px;
+	}
+
+	h1 img{
+		vertical-align: text-top;
+		width: 29px;
+	}
+
+	.admin-info{
+		font-size: 11px;
+		padding: 9px 15px 0 0;
+	}
+
+	#content .heading .buttons {
+		position: static;
+		text-align: right;
+	}
+
+	#content .heading .buttons a.button{
+		padding: 0 10px !important;
+		line-height: 40px;
+	}
+
+	#content .heading .buttons a.button.insert{
+		background: #2382E4;
+	}
+
+	#content .heading .buttons a.button.save{
+		background: #04bc4e;
+	}
+
+	#content .heading .buttons a.button.copy{
+		background: #6D6D6D;
+	}
+
+	#content .heading .buttons a.button.delete,
+	#content .heading .buttons a.button.cancel{
+		background: #F02C2C;
+	}
+
+	#content .heading .buttons a.button.invoice{
+		background: #6D6D6D;
+	}
+
+	#content .heading .buttons a.button.backup{
+		background: #6D6D6D;
+	}
+
+	#content .heading .buttons a.button.restore{
+		background: #6D6D6D;
+	}
+}
+/* Everything Below Tablet - End */
+
+
+/* Phones & Below - Start */
+
+@media (max-width: 480px) {	
+	.form-signin .form-signin-heading h2{
+		font-size: 1.8em;
+		line-height: 1.2em;
+		margin: 0;
+	}
+
+	.form-signin .form-signin-heading .login-header-image{
+		display: none;
+	}
+
+	table.list td{
+		padding:5px;
+	}
+
+	#left-column{
+		padding: 2px 0 0;
+	}
+
+	ul.mainnav li{
+		display: none;
+	}
+
+	ul.mainnav li#menu-control{
+		display: block;
+		/*padding: 0 0 45px;*/
+	}
+
+	ul.mainnav li#menu-control .menu-control-outer{
+		margin: -5px auto 10px;
+	}
+
+	#content {
+		margin-left: 0;
+	}
+
+	#content .heading h1{
+		left: 82px;
+	}
+
+	.secondary-menu > ul > li > a{
+		padding: 10px 15px 9px 15px;
+	}
+
+	.secondary-menu > ul > li#store > a{
+		background: #636363;
+	}
+
+	.secondary-menu > ul > li#store > a:focus,
+	.secondary-menu > ul > li#store > a:hover{
+		background: #00A99D;
+		text-decoration: none;
+	}
+
+	.secondary-menu > ul > li#logout > a{
+		background: #565656;
+	}
+
+	.secondary-menu > ul > li#logout > a:focus,
+	.secondary-menu > ul > li#logout > a:hover{
+		background: #00A99D;
+		text-decoration: none;
+	}
+	.statistic .dashboard-content #report{
+		margin-top: 53px;
+	}
+	.statistic #sales-customer-graph{
+		height: 207px;
+	}
+}
+
+/* Phones & Below - End */
+
+
+/* Smaller Phones & Below - Start */
+
+@media (max-width: 320px) {	
+	.form-signin .form-signin-heading h2{
+		font-size: 1.4em;
+		line-height: 1.2em;
+		padding: 10px;
+	}
+}
+
+/* Smaller Phones & Below - End */

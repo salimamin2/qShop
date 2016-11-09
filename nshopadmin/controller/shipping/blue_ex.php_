@@ -1,0 +1,142 @@
+<?php
+
+class ControllerShippingBlueEx extends Controller {
+
+    private $error = array();
+
+    public function index() {
+        $this->load->language('shipping/blue_ex');
+        $this->load->model('setting/setting');
+
+        if (($this->request->server['REQUEST_METHOD'] == 'POST') && ($this->validate())) {
+            Make::a('setting/setting')->create()->editSetting('blue_ex', $this->request->post);
+
+            $this->session->data['success'] = $this->language->get('text_success');
+
+            $this->redirect(HTTPS_SERVER . 'extension/shipping&token=' . $this->session->data['token']);
+        }
+
+        if (isset($this->error['warning'])) {
+            $this->data['error_warning'] = $this->error['warning'];
+        } else {
+            $this->data['error_warning'] = '';
+        }
+
+        $this->document->title = $this->language->get('heading_title');
+        $this->data['heading_title'] = $this->language->get('heading_title');
+
+        $this->document->breadcrumbs = array();
+
+        $this->document->breadcrumbs[] = array(
+            'href' => HTTPS_SERVER . 'common/home&token=' . $this->session->data['token'],
+            'text' => $this->language->get('text_home'),
+            'separator' => FALSE
+        );
+
+        $this->document->breadcrumbs[] = array(
+            'href' => HTTPS_SERVER . 'extension/shipping&token=' . $this->session->data['token'],
+            'text' => $this->language->get('text_shipping'),
+            'separator' => ' :: '
+        );
+
+        $this->document->breadcrumbs[] = array(
+            'href' => HTTPS_SERVER . 'shipping/blue_ex&token=' . $this->session->data['token'],
+            'text' => $this->language->get('heading_title'),
+            'separator' => ' :: '
+        );
+
+        $this->data['action'] = HTTPS_SERVER . 'shipping/blue_ex&token=' . $this->session->data['token'];
+
+        $this->data['cancel'] = HTTPS_SERVER . 'extension/shipping&token=' . $this->session->data['token'];
+
+        $this->data['blue_ex_rates'] = array();
+
+        $this->data['blue_ex_rates'][] = array(
+            'value' => '',
+            'text' => $this->language->get('text_unknown')
+        );
+
+        $this->data['packages'][] = array(
+            'value' => 'EE',
+            'text' => $this->language->get('text_express_envelope')
+        );
+
+        $this->data['packages'][] = array(
+            'value' => 'OD',
+            'text' => $this->language->get('text_other_package')
+        );
+
+        $this->data['packages'][] = array(
+            'value' => 'CP',
+            'text' => $this->language->get('text_customer_provided')
+        );
+
+        if (isset($this->request->post['blue_ex_test'])) {
+            $this->data['blue_ex_test'] = $this->request->post['blue_ex_test'];
+        } else {
+            $this->data['blue_ex_test'] = $this->config->get('blue_ex_test');
+        }
+
+        if (isset($this->request->post['blue_ex_weight_class'])) {
+            $this->data['blue_ex_weight_class'] = $this->request->post['blue_ex_weight_class'];
+        } else {
+            $this->data['blue_ex_weight_class'] = $this->config->get('blue_ex_weight_class');
+        }
+
+        $this->load->model('localisation/weight_class');
+
+        $this->data['weight_classes'] = $this->model_localisation_weight_class->getWeightClasses();
+
+        if (isset($this->request->post['blue_ex_tax_class_id'])) {
+            $this->data['blue_ex_tax_class_id'] = $this->request->post['blue_ex_tax_class_id'];
+        } else {
+            $this->data['blue_ex_tax_class_id'] = $this->config->get('blue_ex_tax_class_id');
+        }
+
+        $this->load->model('localisation/tax_class');
+
+        $this->data['tax_classes'] = $this->model_localisation_tax_class->getTaxClasses();
+
+        if (isset($this->request->post['blue_ex_geo_zone_id'])) {
+            $this->data['blue_ex_geo_zone_id'] = $this->request->post['blue_ex_geo_zone_id'];
+        } else {
+            $this->data['blue_ex_geo_zone_id'] = $this->config->get('blue_ex_geo_zone_id');
+        }
+
+        $this->load->model('localisation/geo_zone');
+
+        $this->data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
+
+        if (isset($this->request->post['blue_ex_status'])) {
+            $this->data['blue_ex_status'] = $this->request->post['blue_ex_status'];
+        } else {
+            $this->data['blue_ex_status'] = $this->config->get('blue_ex_status');
+        }
+
+        if (isset($this->request->post['blue_ex_sort_order'])) {
+            $this->data['blue_ex_sort_order'] = $this->request->post['blue_ex_sort_order'];
+        } else {
+            $this->data['blue_ex_sort_order'] = $this->config->get('blue_ex_sort_order');
+        }
+        d($this->data);
+
+        $this->template = 'shipping/blue_ex.tpl';
+        
+        $this->response->setOutput($this->render(), $this->config->get('config_compression'));
+    }
+
+    private function validate() {
+        if (!$this->user->hasPermission('modify', 'shipping/blue_ex')) {
+            $this->error['warning'] = $this->language->get('error_permission');
+        }
+        
+        if (!$this->error) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+}
+
+?>

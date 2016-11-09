@@ -1,0 +1,126 @@
+body {
+    padding: 0;
+    margin: 0;
+    background: #F7F7F7;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+}
+img {
+    border: 0;
+}
+#container.filemanager {
+    padding: 0px 10px 7px 10px;
+}
+#menu {
+    clear: both;
+    height: 29px;
+    margin-bottom: 3px;
+}
+
+#content {
+    min-height: 400px;
+}
+
+#column_left {
+    background: #FFF;
+    min-height: 350px;
+    overflow: auto;
+}
+#column_right {
+    background: #FFF;
+    height: 350px;
+    overflow: auto;
+    text-align: center;
+}
+#column_right div {
+    text-align: left;
+    padding: 5px;
+}
+#column_right a {
+    display: inline-block;
+    text-align: center;
+    border: 1px solid #EEEEEE;
+    cursor: pointer;
+    margin: 5px;
+    padding: 5px;
+}
+#column_right a.selected {
+    border: 1px solid #7DA2CE;
+    background: #EBF4FD;
+}
+#column_right input {
+    display: none;
+}
+#dialog {
+    display: none;
+}
+.button {
+    display: block;
+    float: left;
+    padding: 8px 5px 8px 25px;
+    margin-right: 5px;
+    background-position: 5px 6px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+.button:hover {
+    background-color: #EEEEEE;
+}
+.thumb {
+    padding: 5px;
+    width: 105px;
+    height: 105px;
+    background: #F7F7F7;
+    border: 1px solid #CCCCCC;
+    cursor: pointer;
+    cursor: move;
+    position: relative;
+}
+.pagination {
+    _margin-left:148px;
+    border-top: 0px solid #EEEEEE;
+    _background: #F8F8F8;
+    display: inline-block;
+    _width: 100%;
+    text-align: right;
+    margin: 0;
+    float: right;
+}
+.pagination .links, .pagination .results {
+    padding: 5px 5px;
+}
+.pagination .links {
+    _text-align: center;
+    display: inline-block;
+}
+.pagination .links a {
+    border: 1px solid #CCCCCC;
+    padding: 3px 7px;
+    text-decoration: none;
+    color: #000000;
+    cursor: pointer;
+}
+.pagination .links b {
+    border: 1px solid #CCCCCC;
+    padding: 3px 7px;
+    text-decoration: none;
+    color: #000000;
+    background: #FFFFFF;
+}
+.pagination .results {
+    _display: none;
+    display: inline-block;
+}
+.form-group {
+    position: relative;
+}
+
+.filter {
+    /*
+    display: inline-block;
+    float: left;
+    padding: 5px 5px;*/
+}
+.controls {
+    width: 100%;
+}

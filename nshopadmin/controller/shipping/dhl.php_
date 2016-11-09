@@ -1,0 +1,326 @@
+<?php
+
+class ControllerShippingDHL extends Controller {
+
+    private $error = array();
+
+    public function index() {
+        $this->load->language('shipping/dhl');
+		
+		$this->data['heading_title'] = $this->language->get('heading_title');
+
+		$this->data['text_enabled'] = $this->language->get('text_enabled');
+		$this->data['text_disabled'] = $this->language->get('text_disabled');
+		$this->data['text_all_zones'] = $this->language->get('text_all_zones');
+		$this->data['text_none'] = $this->language->get('text_none');
+		$this->data['text_shipping'] = $this->language->get('text_shipping');
+		$this->data['text_yes'] = $this->language->get('text_yes');
+		$this->data['text_no'] = $this->language->get('text_no');
+		
+		$this->data['entry_key'] = $this->language->get('entry_key');
+		$this->data['entry_password'] = $this->language->get('entry_password');
+		$this->data['entry_shipper_account_number'] = $this->language->get('entry_shipper_account_number');
+		$this->data['entry_packaging'] = $this->language->get('entry_packaging');
+		$this->data['entry_payment_type'] = $this->language->get('entry_payment_type');
+		$this->data['entry_product_code'] = $this->language->get('entry_product_code');
+		$this->data['entry_weight_class'] = $this->language->get('entry_weight_class');
+		$this->data['entry_city'] = $this->language->get('entry_city');
+		$this->data['entry_state'] = $this->language->get('entry_state');
+		$this->data['entry_country'] = $this->language->get('entry_country');
+		$this->data['entry_postcode'] = $this->language->get('entry_postcode');
+		$this->data['entry_test'] = $this->language->get('entry_test');
+		$this->data['entry_rate'] = $this->language->get('entry_rate');
+		$this->data['entry_weight_class'] = $this->language->get('entry_weight_class');
+		$this->data['entry_tax'] = $this->language->get('entry_tax');
+		$this->data['entry_geo_zone'] = $this->language->get('entry_geo_zone');
+		$this->data['entry_status'] = $this->language->get('entry_status');
+		$this->data['entry_sort_order'] = $this->language->get('entry_sort_order');
+		
+		$this->data['error_permission'] = $this->language->get('error_permission');
+		$this->data['error_key'] = $this->language->get('error_key');
+		$this->data['error_username'] = $this->language->get('error_username');
+		$this->data['error_password'] = $this->language->get('error_password');
+		$this->data['error_city'] = $this->language->get('error_city');
+		$this->data['error_state'] = $this->language->get('error_state');
+		$this->data['error_country'] = $this->language->get('error_country');
+		
+		$this->data['button_save'] = $this->language->get('button_save');
+		$this->data['button_cancel'] = $this->language->get('button_cancel');
+		
+        $this->load->model('setting/setting');
+        
+        if (($this->request->server['REQUEST_METHOD'] == 'POST') && ($this->validate())) {
+            Make::a('setting/setting')->create()->editSetting('dhl', $this->request->post);
+
+            $this->session->data['success'] = $this->language->get('text_success');
+
+            $this->redirect(HTTPS_SERVER . 'extension/shipping&token=' . $this->session->data['token']);
+        }
+
+        if (isset($this->error['warning'])) {
+            $this->data['error_warning'] = $this->error['warning'];
+        } else {
+            $this->data['error_warning'] = '';
+        }
+
+        if (isset($this->error['key'])) {
+            $this->data['error_key'] = $this->error['key'];
+        } else {
+            $this->data['error_key'] = '';
+        }
+
+        if (isset($this->error['password'])) {
+            $this->data['error_password'] = $this->error['password'];
+        } else {
+            $this->data['error_password'] = '';
+        }
+
+        if (isset($this->error['shipper_account_number'])) {
+            $this->data['error_shipper_account_number'] = $this->error['shipper_account_number'];
+        } else {
+            $this->data['error_shipper_account_number'] = '';
+        }
+
+        if (isset($this->error['city'])) {
+            $this->data['error_city'] = $this->error['city'];
+        } else {
+            $this->data['error_city'] = '';
+        }
+
+        if (isset($this->error['country'])) {
+            $this->data['error_country'] = $this->error['country'];
+        } else {
+            $this->data['error_country'] = '';
+        }
+
+        $this->document->title = $this->language->get('heading_title');
+
+        $this->document->breadcrumbs = array();
+
+        $this->document->breadcrumbs[] = array(
+            'href' => HTTPS_SERVER . 'common/home&token=' . $this->session->data['token'],
+            'text' => $this->language->get('text_home'),
+            'separator' => FALSE
+        );
+
+        $this->document->breadcrumbs[] = array(
+            'href' => HTTPS_SERVER . 'extension/shipping&token=' . $this->session->data['token'],
+            'text' => $this->language->get('text_shipping'),
+            'separator' => ' :: '
+        );
+
+        $this->document->breadcrumbs[] = array(
+            'href' => HTTPS_SERVER . 'shipping/dhl&token=' . $this->session->data['token'],
+            'text' => $this->language->get('heading_title'),
+            'separator' => ' :: '
+        );
+
+        $this->data['action'] = HTTPS_SERVER . 'shipping/dhl&token=' . $this->session->data['token'];
+
+        $this->data['cancel'] = HTTPS_SERVER . 'extension/shipping&token=' . $this->session->data['token'];
+
+        if (isset($this->request->post['dhl_key'])) {
+            $this->data['dhl_key'] = $this->request->post['dhl_key'];
+        } else {
+            $this->data['dhl_key'] = $this->config->get('dhl_key');
+        }
+
+        if (isset($this->request->post['dhl_password'])) {
+            $this->data['dhl_password'] = $this->request->post['dhl_password'];
+        } else {
+            $this->data['dhl_password'] = $this->config->get('dhl_password');
+        }
+
+        if (isset($this->request->post['dhl_shipper_account_number'])) {
+            $this->data['dhl_shipper_account_number'] = $this->request->post['dhl_shipper_account_number'];
+        } else {
+            $this->data['dhl_shipper_account_number'] = $this->config->get('dhl_shipper_account_number');
+        }
+
+        if (isset($this->request->post['dhl_packaging'])) {
+            $this->data['dhl_packaging'] = $this->request->post['dhl_packaging'];
+        } else {
+            $this->data['dhl_packaging'] = $this->config->get('dhl_packaging');
+        }
+
+        $this->data['packages'] = array();
+
+        $this->data['packages'][] = array(
+            'value' => '',
+            'text' => $this->language->get('text_unknown')
+        );
+
+        $this->data['packages'][] = array(
+            'value' => 'EE',
+            'text' => $this->language->get('text_express_envelope')
+        );
+
+        $this->data['packages'][] = array(
+            'value' => 'OD',
+            'text' => $this->language->get('text_other_package')
+        );
+
+        $this->data['packages'][] = array(
+            'value' => 'CP',
+            'text' => $this->language->get('text_customer_provided')
+        );
+
+        if (isset($this->request->post['dhl_payment_type'])) {
+            $this->data['dhl_payment_type'] = $this->request->post['dhl_payment_type'];
+        } else {
+            $this->data['dhl_payment_type'] = $this->config->get('dhl_payment_type');
+        }
+
+        $this->data['payments'] = array();
+
+        $this->data['payments'][] = array(
+            'value' => 'S',
+            'text' => $this->language->get('text_shipper')
+        );
+
+        $this->data['payments'][] = array(
+            'value' => 'R',
+            'text' => $this->language->get('text_recipient')
+        );
+
+        $this->data['payments'][] = array(
+            'value' => 'T',
+            'text' => $this->language->get('text_third_party')
+        );
+
+        $this->data['payments'][] = array(
+            'value' => 'C',
+            'text' => $this->language->get('text_credit_card')
+        );
+
+        if (isset($this->request->post['dhl_product_code'])) {
+            $this->data['dhl_product_code'] = $this->request->post['dhl_product_code'];
+        } else {
+            $this->data['dhl_product_code'] = $this->config->get('dhl_product_code');
+        }
+
+        $this->data['product_codes'] = array();
+
+        $this->data['product_codes'][] = array(
+            'value' => 'D',
+            'text' => $this->language->get('text_doc')
+        );
+
+        $this->data['product_codes'][] = array(
+            'value' => 'W',
+            'text' => $this->language->get('text_wpx')
+        );
+
+        $this->data['product_codes'][] = array(
+            'value' => 'X',
+            'text' => $this->language->get('text_express_doc')
+        );
+
+        if (isset($this->request->post['dhl_city'])) {
+            $this->data['dhl_city'] = $this->request->post['dhl_city'];
+        } else {
+            $this->data['dhl_city'] = $this->config->get('dhl_city');
+        }
+
+        if (isset($this->request->post['dhl_state'])) {
+            $this->data['dhl_state'] = $this->request->post['dhl_state'];
+        } else {
+            $this->data['dhl_state'] = $this->config->get('dhl_state');
+        }
+
+        if (isset($this->request->post['dhl_country'])) {
+            $this->data['dhl_country'] = $this->request->post['dhl_country'];
+        } else {
+            $this->data['dhl_country'] = $this->config->get('dhl_country');
+        }
+
+        if (isset($this->request->post['dhl_postcode'])) {
+            $this->data['dhl_postcode'] = $this->request->post['dhl_postcode'];
+        } else {
+            $this->data['dhl_postcode'] = $this->config->get('dhl_postcode');
+        }
+
+        if (isset($this->request->post['dhl_test'])) {
+            $this->data['dhl_test'] = $this->request->post['dhl_test'];
+        } else {
+            $this->data['dhl_test'] = $this->config->get('dhl_test');
+        }
+
+        if (isset($this->request->post['dhl_weight_class'])) {
+            $this->data['dhl_weight_class'] = $this->request->post['dhl_weight_class'];
+        } else {
+            $this->data['dhl_weight_class'] = $this->config->get('dhl_weight_class');
+        }
+
+        $this->load->model('localisation/weight_class');
+
+        $this->data['weight_classes'] = $this->model_localisation_weight_class->getWeightClasses();
+
+        if (isset($this->request->post['dhl_tax_class_id'])) {
+            $this->data['dhl_tax_class_id'] = $this->request->post['dhl_tax_class_id'];
+        } else {
+            $this->data['dhl_tax_class_id'] = $this->config->get('dhl_tax_class_id');
+        }
+
+        $this->load->model('localisation/tax_class');
+
+        $this->data['tax_classes'] = $this->model_localisation_tax_class->getTaxClasses();
+
+        if (isset($this->request->post['dhl_geo_zone_id'])) {
+            $this->data['dhl_geo_zone_id'] = $this->request->post['dhl_geo_zone_id'];
+        } else {
+            $this->data['dhl_geo_zone_id'] = $this->config->get('dhl_geo_zone_id');
+        }
+
+        $this->load->model('localisation/geo_zone');
+
+        $this->data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
+
+        if (isset($this->request->post['dhl_status'])) {
+            $this->data['dhl_status'] = $this->request->post['dhl_status'];
+        } else {
+            $this->data['dhl_status'] = $this->config->get('dhl_status');
+        }
+
+        if (isset($this->request->post['dhl_sort_order'])) {
+            $this->data['dhl_sort_order'] = $this->request->post['dhl_sort_order'];
+        } else {
+            $this->data['dhl_sort_order'] = $this->config->get('dhl_sort_order');
+        }
+
+        $this->template = 'shipping/dhl.tpl';
+        
+        $this->response->setOutput($this->render(), $this->config->get('config_compression'));
+    }
+
+    private function validate() {
+        if (!$this->user->hasPermission('modify', 'shipping/dhl')) {
+            $this->error['warning'] = $this->language->get('error_permission');
+        }
+
+        if (!$this->request->post['dhl_key']) {
+            $this->error['key'] = $this->language->get('error_key');
+        }
+
+        if (!$this->request->post['dhl_shipper_account_number']) {
+            $this->error['shipper_account_number'] = $this->language->get('error_shipper_account_number');
+        }
+
+        if (!$this->request->post['dhl_city']) {
+            $this->error['city'] = $this->language->get('error_city');
+        }
+
+        if (!$this->request->post['dhl_country']) {
+            $this->error['country'] = $this->language->get('error_country');
+        }
+
+        if (!$this->error) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+}
+
+?>

@@ -1,0 +1,12 @@
+.form-signin input[type="text"],
+.form-signin input[type="password"]{
+	padding: 5px 0 0;
+}
+
+#content .heading h1{
+	width: 100%;
+}
+
+.admin-info{
+	width: 350px;
+}

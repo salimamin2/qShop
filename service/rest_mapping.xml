@@ -1,0 +1,12 @@
+<maps>
+    <map method="POST" uri="/login" action="Service_Controller_Common_Home::login" />
+    <map method="POST" uri="/product" action="Service_Controller_Catalog_Product::listProduct" />
+    <map method="POST" uri="/product/[a-zA-Z0-9]+" action="Service_Controller_Catalog_Product::listProduct" />
+    <map method="POST" uri="/sale/latest" action="Service_Controller_Sale_Order::getLatestSoldQuantity" />
+    <map method="POST" uri="/sale/confirm/[a-zA-Z0-9]+" action="Service_Controller_Sale_Order::confirmLatestSaleBatch" />
+    <map method="POST" uri="/product/update/[a-zA-Z0-9]+" action="Service_Controller_Catalog_Product::updateQuantity" />
+    <map method="POST" uri="/product/increase/[a-zA-Z0-9]+" action="Service_Controller_Catalog_Product::updateQuantity" />
+    <map method="POST" uri="/product/decrease/[a-zA-Z0-9]+" action="Service_Controller_Catalog_Product::updateQuantity" />
+    <map method="POST" uri="/product/enable/[a-zA-Z0-9]+" action="Service_Controller_Catalog_Product::updateStatus" />
+    <map method="POST" uri="/product/disable/[a-zA-Z0-9]+" action="Service_Controller_Catalog_Product::updateStatus" />
+</maps>

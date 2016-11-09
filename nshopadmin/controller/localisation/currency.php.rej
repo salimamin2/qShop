@@ -1,0 +1,7 @@
+diff a/nshopadmin/controller/localisation/currency.php b/nshopadmin/controller/localisation/currency.php	(rejected hunks)
+@@ -1,4 +0,4 @@
+-<?php 
++text_deleted<?php 
+ class ControllerLocalisationCurrency extends Controller {
+ 	private $error = array();
+  

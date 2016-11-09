@@ -1,0 +1,147 @@
+<div id="Content" class="container">
+    <?php if(empty($aAuthor)): ?>
+    <div class="col-sm-3 editorial-main" style="">
+
+        <p class="editorial-list-head"><?php echo $text_category_editorail; ?></p>
+        <div class="line"></div>
+
+        <ul class="list-group-editorial" style="list-style: none">
+            <?php foreach($categories as $category): ?>
+                <li class="list-group-item">
+                    <a href="<?php echo str_replace('&', '&amp;', $category['href']); ?>">
+                        <?php echo $category['name']; ?>
+                    </a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+
+        <p class="editorial-list-head"><?php echo $text_category_bytime; ?></p>
+        <div class="line"></div>
+
+        <ul class="list-group-editorial" style="list-style: none">
+            <li class="list-group-item">
+                <a href="<?php echo str_replace('&', '&amp;', $posted_recently); ?>">
+                    <?php echo $text_recent; ?>
+                </a>
+            </li>
+
+            <li class="list-group-item">
+                <a href="<?php echo str_replace('&', '&amp;', $posted_month); ?>">
+                    <?php echo $text_month; ?>
+                </a>
+            </li>
+
+            <li class="list-group-item">
+                <a href="<?php echo str_replace('&', '&amp;', $posted_week); ?>">
+                    <?php echo $text_week; ?>
+                </a>
+            </li>
+        </ul>
+
+        <p class="editorial-list-head"><?php echo $text_author; ?></p>
+        <div class="line"></div>
+        <ul class="list-group-editorial" style="list-style: none">
+            <?php foreach($featured_authors as $authors): ?>
+                <li class="list-group-item">
+                    <div class="col-md-3 no-padding">
+                        <div class="image-author">
+                            <a class="authrs-a" href="<?php echo str_replace('&', '&amp;', $authors['href']); ?>">
+                                <img src="<?php echo $authors['image']; ?>" alt="<?php echo $authors['username']; ?>"  title="<?php echo $authors['username']; ?>" />
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="author-content">
+                            <p><a class="authrs-a" href="<?php echo str_replace('&', '&amp;', $authors['href']); ?>"><?php echo $authors['username']; ?></a></p>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </li>
+                <div class="clearfix"></div>
+            <?php endforeach; ?>
+        </ul>
+        <a class="view-all" href="<?php echo str_replace('&', '&amp;', $more_authors); ?>">
+            <?php echo $text_more_authors; ?>
+        </a>
+        <br /><br />
+    </div>
+
+    <div class="col-sm-9 right">
+        [module name="know"]
+    <?php else: ?>
+        <div class="col-main grid12-9 grid-col2-main in-col2 col-md-12">
+            <div class="designer-profile text-center">
+                <?php if ($aAuthor['im'] != ''): ?>
+                    <div class="img">
+                        <img src="<?php echo $aAuthor['im']; ?>" alt="<?php echo $aAuthor['name']; ?>" title="<?php echo ($aAuthor['meta_title'] != '' ? $aAuthor['meta_tile'] : $aAuthor['name']); ?>" />
+                    </div>
+                <?php endif; ?>
+                <h1><?php echo $aAuthor['name']; ?></h1>
+                <?php if(trim($aAuthor['description']) != ''): ?>
+                    <p><?php echo $aAuthor['description']; ?></p>
+                <?php endif; ?>
+                <div class="social-icon">
+                    <?php if($aAuthor['fb_link']): ?>
+                        <span><a href="<?php echo ($aAuthor['fb_link'] ? $aAuthor['fb_link'] : 'http://facebook.com/'); ?>" target="_blank" class="facebook-square"></a></span>
+                    <?php endif; ?>
+                    <?php if($aAuthor['twitter_link']): ?>
+                        <span><a href="<?php echo ($aAuthor['twitter_link'] ? $aAuthor['twitter_link'] : 'http://www.twitter.com/'); ?>" target="_blank" class="twitter-square"></a></span>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <div class="category-products">
+                <div class="text-center">
+                    <p class="section-title-account">
+                        <span class="background-account">
+                            <span class="border-account">Posts</span>
+                        </span>
+                    </p>
+                </div>
+    <?php endif; ?>
+
+        <?php if($posts) { ?>
+            <ul class="editorial-image-wrapper row">
+                <?php foreach ($posts as $i => $post): ?>
+                    <li class="item <?php
+		                echo ($i == 0) ? 'first ' : '';
+                        echo ($i == 1) ? 'second ' : '';
+		                echo ($i % 4 == 0) ? 'row-first ' : '';
+		                echo ($i % 4 == 3) ? 'row-last ' : '';
+		                echo (count($posts) - 1 == $i) ? 'last' : '';
+                    ?> list-editorial">
+                        <?php if ($post['thumb']): ?>
+                            <div class="editorial-image-wrapper">
+                                <a href="<?php echo str_replace('&', '&amp;', $post['href']); ?>" title="<?php echo $post['meta_link']; ?>" class="product-image">
+                                    <img src="<?php echo $post['thumb']; ?>" alt="<?php echo $post['alt_title']; ?>"  title="<?php echo $post['alt_title']; ?>" />
+                                </a>
+                            </div>
+                        <?php endif; ?>
+
+                        <span class="editorial-name">
+                            <a href="<?php echo str_replace('&', '&amp;', $post['href']); ?>" title="<?php echo $post['meta_link']; ?>" >
+                                <?php echo $post['name']; ?>
+                            </a>
+                        </span>
+
+                        <div class="read_more">
+                            <a href="<?php echo str_replace('&', '&amp;', $post['href']); ?>" title="<?php echo $post['meta_link']; ?>" >
+                                <span><?php echo $text_readmore; ?></span>
+                            </a>
+                        </div>
+                    </li>
+                    <?php echo ($i == 1) ? '<div class="clearfix"></div> ' : ''; ?>
+                <?php endforeach; ?>
+            </ul>
+        <?php } else { ?>
+            <div class="block_category_above_empty_collection std">
+                <div class="note-msg empty-catalog">
+                    <h3><?php echo $text_noposts; ?></h3>
+                </div>
+            </div>
+        <?php } ?>
+        <?php if($aAuthor): ?>
+                </div>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>
